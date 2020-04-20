@@ -3,25 +3,18 @@ const config = require('./token-config.js');
 const ResponseError = require('./response-error');
 
 const getTokenUserId = (request) => {
-  const promise = new Promise((resolve, reject) => {
+  return promise = new Promise((resolve, reject) => {
     getDecodedToken(request)
-        .then((decoded) => {
-          db.query('SELECT * FROM users where id=? AND pass=?',
-              [decoded.id, decoded.pass], function(error, rows, fields) {
-                if (error) {
-                  reject(new ResponseError(error, 400));
-                } else {
-                  resolve(rows[0]);
-                }
-              });
-        })
+        .then((decoded) => User.findOne({where: {
+          id: decoded.id,
+          pass: decoded.pass,
+        }}).then((row) => resolve(row)))
         .catch((error) => reject(error));
   });
-  return promise;
 };
 
 const getDecodedToken = (request) => {
-  const promise = new Promise((resolve, reject) => {
+  return promise = new Promise((resolve, reject) => {
     const data = request.query;
     const token = data.access_token;
     if (!token) {
@@ -35,7 +28,6 @@ const getDecodedToken = (request) => {
       resolve(decoded);
     });
   });
-  return promise;
 };
 
 module.exports.getDecodedToken = getDecodedToken;
