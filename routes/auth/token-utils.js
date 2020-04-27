@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const config = require('./token-config.js');
 const ResponseError = require('./response-error');
-
+const User = require('../../models/user');
 const getTokenUserId = (request) => {
   return promise = new Promise((resolve, reject) => {
     getDecodedToken(request)
