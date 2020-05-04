@@ -1,6 +1,6 @@
 const ResponseError = require('../routes/auth/response-error');
 const Comment = require('../models/comment');
-const getComment = () => {
+const getAllComment = () => {
   return new Promise((resolve, reject) => {
     Comment.findAll()
         .then((comments) => resolve(comments))
